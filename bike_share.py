@@ -19,9 +19,9 @@ def get_filters():
         (str) day - name of the day of week to filter by, or "all" to apply no day filter
     """
     print('Hello! Let\'s explore some US bikeshare data!')
-    # Get user input for city (chicago, new york city, washington). HINT: Use a while loop to handle invalid inputs
    
     city = month = day = ''
+     # Get user input for city (chicago, new york city, washington) using a while loop to handle invalid inputs
     while city.lower() not in CITY_DATA.keys():
        city = input('Input city (chicago, new york city, washington): ')
     
@@ -51,10 +51,14 @@ def load_data(city, month, day):
     df = pd.read_csv(CITY_DATA.get(city))
     df['Start Time'] = pd.to_datetime(df['Start Time'])
     df['hour'] = df['Start Time'].dt.hour
+
+    # Check if user input normal month
     if month != 'all':
         df['month'] = df['Start Time'].dt.month
         valid_month = VALID_MONTHS.index(month) + 1
         df = df[df['month'] == valid_month]
+
+    # Check if user input normal day
     if day != 'all':
         df['day'] = df['Start Time'].dt.day_name()
         df = df[df['day'] == day.title()]
@@ -183,6 +187,8 @@ def main():
                 break
 
         restart = input('\nWould you like to restart? Enter yes or no.\n')
+
+        # Check if user want to restart or not, if no, break program
         if restart.lower() != 'yes':
             break
 
