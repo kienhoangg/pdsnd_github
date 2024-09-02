@@ -44,3 +44,7 @@ Data files:
 ### Credits
 
 - [Udacity](https://www.udacity.com/enrollment/nd104) - Udacity's Data Analyst Nanodegree program
+
+### Contact information
+
+KIENHT12
