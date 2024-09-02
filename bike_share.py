@@ -19,17 +19,17 @@ def get_filters():
         (str) day - name of the day of week to filter by, or "all" to apply no day filter
     """
     print('Hello! Let\'s explore some US bikeshare data!')
-    # Get user input for city (chicago, new york city, washington). HINT: Use a while loop to handle invalid inputs
    
     city = month = day = ''
+     # Get user input for city (chicago, new york city, washington) using a while loop to handle invalid inputs
     while city.lower() not in CITY_DATA.keys():
        city = input('Input city (chicago, new york city, washington): ')
     
-    # Get user input for month (all, january, february, ... , june)
+    # Get user input for month (all, january, february, ... , june) using a while loop to handle invalid inputs
     while month.lower() not in VALID_MONTHS:
        month = input('Input month: ')
 
-    # Get user input for day of week (all, monday, tuesday, ... sunday)
+    # Get user input for day of week (all, monday, tuesday, ... sunday) using a while loop to handle invalid inputs
     while day.lower() not in VALID_DAYS:
        day = input('Input day: ')
 
@@ -51,10 +51,14 @@ def load_data(city, month, day):
     df = pd.read_csv(CITY_DATA.get(city))
     df['Start Time'] = pd.to_datetime(df['Start Time'])
     df['hour'] = df['Start Time'].dt.hour
+
+    # Check if user input normal month
     if month != 'all':
         df['month'] = df['Start Time'].dt.month
         valid_month = VALID_MONTHS.index(month) + 1
         df = df[df['month'] == valid_month]
+
+    # Check if user input normal day
     if day != 'all':
         df['day'] = df['Start Time'].dt.day_name()
         df = df[df['day'] == day.title()]
@@ -137,7 +141,6 @@ def user_stats(df):
     # Display counts of user types
     print(f"\nCounts of user types: {df['User Type'].value_counts()}")
 
-   
     try:
         # Display counts of gender
         print(f"\nCounts of gender: {df['Gender'].value_counts()}")
@@ -154,6 +157,7 @@ def user_stats(df):
 
 
 def main():
+    # This loop will help user input choice if they want to see more raw data
     while True:
         city, month, day = get_filters()
         df = load_data(city, month, day)
@@ -163,6 +167,7 @@ def main():
         user_stats(df)
         index_row = 0
         size_data = 5
+        # This loop will help user input choice if they want to see more raw data
         while True:
             see_raw_data = input('\nWould you like to see more raw data? Enter yes or no.\n')
             if index_row == 0:
@@ -182,6 +187,8 @@ def main():
                 break
 
         restart = input('\nWould you like to restart? Enter yes or no.\n')
+
+        # Check if user want to restart or not, if no, break program
         if restart.lower() != 'yes':
             break
 
