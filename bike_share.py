@@ -25,11 +25,11 @@ def get_filters():
     while city.lower() not in CITY_DATA.keys():
        city = input('Input city (chicago, new york city, washington): ')
     
-    # Get user input for month (all, january, february, ... , june)
+    # Get user input for month (all, january, february, ... , june) using a while loop to handle invalid inputs
     while month.lower() not in VALID_MONTHS:
        month = input('Input month: ')
 
-    # Get user input for day of week (all, monday, tuesday, ... sunday)
+    # Get user input for day of week (all, monday, tuesday, ... sunday) using a while loop to handle invalid inputs
     while day.lower() not in VALID_DAYS:
        day = input('Input day: ')
 
@@ -137,7 +137,6 @@ def user_stats(df):
     # Display counts of user types
     print(f"\nCounts of user types: {df['User Type'].value_counts()}")
 
-   
     try:
         # Display counts of gender
         print(f"\nCounts of gender: {df['Gender'].value_counts()}")
@@ -154,6 +153,7 @@ def user_stats(df):
 
 
 def main():
+    # This loop will help user input choice if they want to see more raw data
     while True:
         city, month, day = get_filters()
         df = load_data(city, month, day)
@@ -163,6 +163,7 @@ def main():
         user_stats(df)
         index_row = 0
         size_data = 5
+        # This loop will help user input choice if they want to see more raw data
         while True:
             see_raw_data = input('\nWould you like to see more raw data? Enter yes or no.\n')
             if index_row == 0:
